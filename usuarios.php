@@ -56,7 +56,7 @@
 	  <td><?php echo $direccion; ?></td>
 	  <td><?php echo $telefono; ?></td>
 	  <td>
-		<a href='actualizarUsuario.php?usuario=<?php echo $usuario; ?>' class='btn btn-success' role='alert'>Editar</a>
+		<a href='actualizarUsuario.php?email=<?php echo $email; ?>' class='btn btn-success' role='alert'>Editar</a>
 		<a href='borrarUsuario.php?usuario=<?php echo $usuario; ?>' class='btn btn-danger' role='alert'>Borrar</a>
 	  </td>
     </tr>

@@ -1,4 +1,7 @@
 <?php
+	
+	$pagina = "index";
+	$titulo = "Mi grupito";
 	require_once("inc/encabezado.php");
 	require_once("bbdd/bbdd.php");
 	require_once("bbdd/configuracion.php");

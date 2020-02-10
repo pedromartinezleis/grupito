@@ -41,7 +41,7 @@ function seleccionarUnProducto($idProducto){
 }
 
 //seleccionar un usuario
-function seleccionarUsuario($email,$password){
+function seleccionarUsuario($email){
 	$con = conectarbd();
 	try{
 		$sql = "SELECT * FROM usuarios WHERE email=:email";
@@ -139,7 +139,7 @@ function seleccionarTodosUsuarios(){
 			$con = conectarbd();
 			
 			try{
-				$sql = "SELECT * FROM productos WHERE idProducto=º.:idProducto";
+				$sql = "SELECT * FROM productos WHERE idProducto=:idProducto";
 				$stmt = $con->prepare($sql);
 				
 				$stmt -> bindparam('idProducto', $idProducto, PDO::PARAM_INT);
