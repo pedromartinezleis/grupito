@@ -43,3 +43,14 @@ function recoge($var, $m = "")
     return $tmp;
 }//fin recoge
 ?>
+<?php
+function mostrarMensaje($mensaje){
+?>
+	<div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Tu carro esta vacio</h1>
+    </div>
+  </div>
+ <?php
+	}
+?>

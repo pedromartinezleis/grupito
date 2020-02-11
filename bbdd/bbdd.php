@@ -55,7 +55,7 @@ function seleccionarUsuario($email){
 		
 		
 	}catch(PDOException $e ){
-			echo "Error al seelccionar el usuairo:".$e->getMessage();
+			echo "Error al seleccionar el usuairo:".$e->getMessage();
 			file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a ').$e -> getMessage(), FILE_APPEND);
 			exit;	
 	}
