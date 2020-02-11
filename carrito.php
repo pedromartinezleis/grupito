@@ -64,8 +64,8 @@
   </tfoot>
 </table>
 
-<a href="procesarCarrito.php?id=<?php echo $idProducto?>&op=empty" class="btn btn-danger">Vaciar carrito</a><br />
-<a href="confirmarPedido.php" class="btn btn-success">Confirmar pedido</a>
+<a href="procesarCarrito.php?id=<?php echo $idProducto?>&op=empty" class="btn btn-danger">Vaciar carrito</a>
+<a href="confirmarPedido.php" class="btn btn-success ml-3">Confirmar pedido</a>
 </div><!--fin div de la tabla-->
 </div><!-- fin div class container-->
 <?php
