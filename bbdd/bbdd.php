@@ -155,4 +155,42 @@ function seleccionarTodosUsuarios(){
 			}
 			return $row;
 		}
+		
+//funcion insertar pedido
+
+function insertarPedido($idUsuario, $detallePedido, $total){
+	$con = conectarbd();
+	try{
+		$conexion -> beginTransaction();
+		$sql = 'INSERT INTO pedido(idUsuario, total) VALUES (:idUsuario,:total)';
+		
+		$sentencia = $conexion -> prepare($sql);
+		$sentencia -> bindparam (":idUsuario", $idUsuario);
+		
+		$sentencia -> execute();
+		
+		$idPedido = $conexion -> lastInsertId();
+		
+		foreach($detallePedido as $idProducto => $cantidad){
+			$sql2 = "INSERT INTO detallePedido";
+			$producto = seleccionarProducto($idProducto);
+			$precio = $producto['precioOferta'];
+			$sql2 ="INSERT INTO detallePedido(idPedido, idProducto, cantidad, precio) VALUES (:idPedido, :idProducto, :cantidad, :precio)";
+			$sentencia -> bindParam(":idPedido", $idPedido);
+			$sentencia -> bindParam(":idProducto", $idProducto);
+			$sentencia -> bindParam(":cantidad", $cantidad);
+			$sentencia -> bindParam(":precio", $precio);
+			$sentencia -> execute();
+		}
+		$conexion -> commit();
+		
+	}catch(PDOException $e ){
+			$conexion -> rollback();
+			echo "Error al hacer pedido:".$e->getMessage();
+			file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a ').$e -> getMessage(), FILE_APPEND);
+			exit;
+}
+	return $rows;
+}
+
 ?>

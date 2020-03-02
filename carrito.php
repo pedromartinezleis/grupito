@@ -21,6 +21,7 @@
 	if(empty($_SESSION['carrito'])){
 		$mensaje = 'carrito vacio';
 		mostrarMensaje($mensaje);
+		
 	}else{
   ?>
 <div class="container">
