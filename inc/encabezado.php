@@ -72,18 +72,18 @@
 	<ul class="navbar-nav justify-content-end">	
 		
 			<li class="nav-item">
-				<a href="carrito.php" class="nav-item"><i class="fas fa-shopping-cart"></i> (0)  </a>
+				<a href="carrito.php" class="nav-item"><i class="fas fa-shopping-cart"></i></a>
 			</li>
 			
 		<?php
-			if(isset($_SESSION['usuario'])){
+			if(isset($_SESSION['email'])){
 		?>
 		  <li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido Fulanito</a>
+			<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido <?php echo $_SESSION['email'];?></a>
 			<div class="dropdown-menu" aria-labelledby="dropdown01">
 			  <a class="dropdown-item" href="misDatos.php">Mis datos</a>
 			  <a class="dropdown-item" href="misPedidos.php">Mis pedidos</a>
-			  <a class="dropdown-item" href="logout.php">Cerrar sesión</a>
+			  <a class="dropdown-item" href="cerrarSesion.php">Cerrar sesión</a>
 			</div>
 		  </li>
 		  <?php

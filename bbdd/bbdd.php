@@ -41,7 +41,7 @@ function seleccionarUnProducto($idProducto){
 }
 
 //seleccionar un usuario
-function seleccionarUsuario($email){
+function seleccionarUsuario($email,$nombre, $apellidos, $direccion, $telefono){
 	$con = conectarbd();
 	try{
 		$sql = "SELECT * FROM usuarios WHERE email=:email";
@@ -49,17 +49,22 @@ function seleccionarUsuario($email){
 		$stmt = $con -> prepare($sql);
 		
 		$stmt -> bindParam(':email',$email);
+		//$stmt -> bindParam(':password',$password);
+		$stmt -> bindParam(':nombre',$nombre);
+		$stmt -> bindParam(':apellidos',$apellidos);
+		$stmt -> bindParam(':direccion',$direccion);
+		$stmt -> bindParam(':telefono',$telefono);
 		
 		$stmt -> execute();
 		$row =  $stmt -> fetch(PDO::FETCH_ASSOC);
 		
 		
 	}catch(PDOException $e ){
-			echo "Error al seleccionar el usuairo:".$e->getMessage();
+			echo "Error al seleccionar el usuario:".$e->getMessage();
 			file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a ').$e -> getMessage(), FILE_APPEND);
 			exit;	
 	}
-	return $row;
+	return $rows;
 }
 
 //seleccionar todos los usuarios
@@ -193,4 +198,30 @@ function insertarPedido($idUsuario, $detallePedido, $total){
 	return $rows;
 }
 
+	//Funcion actualizar usuario
+	
+	function actualizarUsuario($email, $password, $nombre, $apellidos, $direccion, $telefono){
+		$con = conectarbd();
+		
+		//$password = password_hash($npassword, PASSWORD_DEFAULT);
+		
+		try{
+			$sql = "UPDATE usuarios SET password=:password, nombre=:nombre, apellidos=:apellidos, direccion=:direccion, telefono=:telefono WHERE email=:email";
+			$stmt=$con->prepare($sql);
+			
+			$stmt->bindParam('nombre',$nombre);
+			$stmt ->bindParam(':password', $password);
+			$stmt ->bindParam(':apellidos', $apellidos);
+			$stmt ->bindParam(':direccion', $direccion);
+			$stmt ->bindParam(':telefono', $telefono);
+			
+			$stmt -> execute();
+			
+		}catch(PDOException $e ){
+			echo "Error al actualizar usuario:".$e->getMessage();
+			file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a ').$e -> getMessage(), FILE_APPEND);
+			exit;
+		}
+		return $stmt->rowCount();
+	}
 ?>

@@ -8,21 +8,32 @@
 
 ?>
 <?php
-	if(empty($_SESSION['carrito'])){
-		$mensaje = 'carrito vacio';
-		mostrarMensaje($mensaje);
-		header('Location:index.php');
-	}elseif{
-		$mensaje = 'Necesitas estar logeado para realizar esta accion';
-		mostrarMensaje($mensaje);
-		header('Location:login.php');
-	}else{
-		foreach($_SESSION['carrito'] as $idProducto => $cantidad){
-			
-		}
-	}
-	
-?>
+	if(!isset($_SESSION['carrito'])){
+		echo "Tu carrito esta vacío.";
+		echo "<a href=\"index.php\" class=\"btn btn-primary ml-3\">Volver.</a>";
+	}else{				
+		if(!isset($_SESSION['mail'])){
+					echo "Para procesar la compra, debe iniciar sesión.";
+					echo "<a href=\"login.php\" class=\"btn btn-primary ml-3\">Iniciar sesión</a>";	
+				}else{	
+					$idUsuario=$_SESSION['idUsuario'];
+					$detallePedido=$_SESSION['carrito'];
+					$total=0;
+					foreach($detallePedido as $id=>$cantidad){
+						$producto = seleccionarProducto($id);
+						$precio = $producto['precioOferta'];
+						$subtotal = $precio * $cantidad;
+						$total = $total + $subtotal;
+					}
+					$pedidoOK=insertarPedido($idUsuario, $detallePedido, $total);
+					if($pedidoOK){
+							echo "El pedido fue procesado con exito";
+					}else{
+							echo "Error al procesar el pedido";
+					}
+				}
+			}
+		?>
   <!-- Main jumbotron for a primary marketing message or call to action -->
  <main role="main">
   <div class="jumbotron">

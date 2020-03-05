@@ -1,7 +1,7 @@
 <?php session_start();
+	require_once("inc/encabezado.php");
 	include("inc/funciones.php");
 	include("bbdd/bbdd.php");
-	require_once "inc/encabezado2.php";
 	function login($email,$password){
 ?>
 <form method="post">
@@ -32,9 +32,11 @@
 			echo "Rellena todo el formulario";
 			login($email,$password);
 		}else{
-			if(seleccionarUsuario($email,$password)){				
+			$usuario=seleccionarUsuario($email,$password);
+			
+			if(!empty($usuario)){				
 				$_SESSION["email"]=$email;				
-				header("Location:usuarios.php");
+				header("Location:productos.php");
 			}else{
 				echo "email o contraseña incorrectos";
 				login($email,$password);

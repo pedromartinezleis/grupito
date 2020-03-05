@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	$pagina = "Contacto";
 	$titulo = "Contacta con nosotros";
 	require_once("inc/encabezado.php");
@@ -21,24 +22,24 @@
     </div>
 	<div>
 	 <form action="" method="post">
-		<p>
+		<div>
 			<label for="mail">Correo: </label>
 			<input type="text" id="mail" name="mail"/>
-		</p>
-		<p>
+		</div>
+		<div>
 			<label for="asunto">Asunto: </label>
 			<input type="text" id="asunto" name="asunto"/>
-		</p>
+		</div>
 		Escribe aqui tu consulta:
-		<p>
+		<div>
 			<textarea id="cuerpo" name="cuerpo" rows="4" cols="50">
 				
 			</textarea>
-		</p>
-		<p>
+		</div>
+		<div>
 			<input type="submit" value="Enviar"/>
 			<input type="reset" value="Vaciar"/>
-		</p>
+		</div>
 	  </form>
 	</div>
   </div>
@@ -50,6 +51,7 @@
 		$mail = "";
 		$asunto = "";
 		$cuerpo = "";
+		 mostrarFormulario($mail, $asunto, $cuerpo);
 	}else{
 		$mail = recoge("mail");
 		$asunto = recoge("asunto");
@@ -57,8 +59,13 @@
 		
 		if($mail == "" or $asunto == "" or $cuerpo == ""){
 			echo "Debes rellenar todos los campos";
+			 mostrarFormulario($mail, $asunto, $cuerpo);
 		}else{
 			enviarMail($mail,$asunto,$cuerpo);
+			if(enviarMail){
+				echo "Gracias por ponerte en contacto con nosotros, en unas horas recibiras respuesta";
+				 mostrarFormulario($mail, $asunto, $cuerpo);
+			}
 		}
 	}
  ?>	

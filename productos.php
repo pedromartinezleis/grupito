@@ -1,5 +1,5 @@
 <?php
-	
+	session_start();
 	$pagina = "productos";
 	$titulo = "Todas nuestras ofertas";
 	require_once("inc/encabezado.php");

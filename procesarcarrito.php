@@ -42,7 +42,7 @@
 		
 		default:
 			header("location: index.php");
-	}//fin nintendo switch
+	}//fin switch
 	
 	header("location: carrito.php");
 ?>
