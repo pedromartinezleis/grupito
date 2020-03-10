@@ -41,7 +41,7 @@ function seleccionarUnProducto($idProducto){
 }
 
 //seleccionar un usuario
-function seleccionarUsuario($email,$nombre, $apellidos, $direccion, $telefono){
+function seleccionarUsuario($email){
 	$con = conectarbd();
 	try{
 		$sql = "SELECT * FROM usuarios WHERE email=:email";
@@ -49,11 +49,7 @@ function seleccionarUsuario($email,$nombre, $apellidos, $direccion, $telefono){
 		$stmt = $con -> prepare($sql);
 		
 		$stmt -> bindParam(':email',$email);
-		//$stmt -> bindParam(':password',$password);
-		$stmt -> bindParam(':nombre',$nombre);
-		$stmt -> bindParam(':apellidos',$apellidos);
-		$stmt -> bindParam(':direccion',$direccion);
-		$stmt -> bindParam(':telefono',$telefono);
+		
 		
 		$stmt -> execute();
 		$row =  $stmt -> fetch(PDO::FETCH_ASSOC);
@@ -64,7 +60,7 @@ function seleccionarUsuario($email,$nombre, $apellidos, $direccion, $telefono){
 			file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a ').$e -> getMessage(), FILE_APPEND);
 			exit;	
 	}
-	return $rows;
+	return $row;
 }
 
 //seleccionar todos los usuarios
@@ -164,7 +160,7 @@ function seleccionarTodosUsuarios(){
 //funcion insertar pedido
 
 function insertarPedido($idUsuario, $detallePedido, $total){
-	$con = conectarbd();
+	$conexion = conectarbd();
 	try{
 		$conexion -> beginTransaction();
 		$sql = 'INSERT INTO pedido(idUsuario, total) VALUES (:idUsuario,:total)';
@@ -200,17 +196,17 @@ function insertarPedido($idUsuario, $detallePedido, $total){
 
 	//Funcion actualizar usuario
 	
-	function actualizarUsuario($email, $password, $nombre, $apellidos, $direccion, $telefono){
+	function actualizarUsuario($email, $nombre, $apellidos, $direccion, $telefono){
 		$con = conectarbd();
 		
 		//$password = password_hash($npassword, PASSWORD_DEFAULT);
 		
 		try{
-			$sql = "UPDATE usuarios SET password=:password, nombre=:nombre, apellidos=:apellidos, direccion=:direccion, telefono=:telefono WHERE email=:email";
+			$sql = "UPDATE usuarios SET nombre=:nombre, apellidos=:apellidos, direccion=:direccion, telefono=:telefono WHERE email=:email";
 			$stmt=$con->prepare($sql);
 			
-			$stmt->bindParam('nombre',$nombre);
-			$stmt ->bindParam(':password', $password);
+			$stmt->bindParam(':email',$email);
+			$stmt->bindParam(':nombre',$nombre);
 			$stmt ->bindParam(':apellidos', $apellidos);
 			$stmt ->bindParam(':direccion', $direccion);
 			$stmt ->bindParam(':telefono', $telefono);
